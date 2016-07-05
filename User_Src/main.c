@@ -70,6 +70,8 @@ int main(void)
 			IMUcalibrate();
 			/*remote calibrate*/
 			Remotecalibrate();
+			
+			keyCheck();
 		}
 
 		//50Hz loop

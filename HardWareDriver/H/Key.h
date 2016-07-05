@@ -12,7 +12,7 @@
 
 
 void KeyInit(void);   //Key初始化函数外部声明
-
+void keyCheck(void);  //search way
 
 #endif
 

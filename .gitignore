@@ -240,3 +240,7 @@ List/
 /StartUp/system_stm32f10x.c
 /StartUp/stm32f10x.h
 /HardWareDriver/H/english_6x8_pixel.h
+/RTE
+/*.uvprojx
+/*.saved_uv4
+/*.uvoptx

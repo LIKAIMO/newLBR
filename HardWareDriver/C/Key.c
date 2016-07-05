@@ -42,7 +42,7 @@ void KeyInit(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
-	EXTI_InitTypeDef EXTI_InitStructure;
+	//EXTI_InitTypeDef EXTI_InitStructure;
 
 	/* config the extiline(PB1,PB3,PA8) clock and AFIO clock */
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOA | RCC_APB2Periph_AFIO,ENABLE);
@@ -87,29 +87,29 @@ void KeyInit(void)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	
-	//Mode-->PB1
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource1);
-	EXTI_InitStructure.EXTI_Line = EXTI_Line1;            //设定外部中断1
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;  //设定中断模式
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	EXTI_Init(&EXTI_InitStructure);
+//	//Mode-->PB1
+//	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource1);
+//	EXTI_InitStructure.EXTI_Line = EXTI_Line1;            //设定外部中断1
+//	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;  //设定中断模式
+//	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
+//	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+//	EXTI_Init(&EXTI_InitStructure);
 
-	//“＋”-->PB3
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource3);
-	EXTI_InitStructure.EXTI_Line = EXTI_Line3;            //设定外部中断1
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;  //设定中断模式
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	EXTI_Init(&EXTI_InitStructure);
+//	//“＋”-->PB3
+//	GPIO_EXTILineConfig(GPIO_PortSourceGPIOB, GPIO_PinSource3);
+//	EXTI_InitStructure.EXTI_Line = EXTI_Line3;            //设定外部中断1
+//	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;  //设定中断模式
+//	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
+//	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+//	EXTI_Init(&EXTI_InitStructure);
 
-	//“－”-->PA8
-	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource8);
-	EXTI_InitStructure.EXTI_Line = EXTI_Line8;              //设定外部中断1
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;     //设定中断模式
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	EXTI_Init(&EXTI_InitStructure);
+//	//“－”-->PA8
+//	GPIO_EXTILineConfig(GPIO_PortSourceGPIOA, GPIO_PinSource8);
+//	EXTI_InitStructure.EXTI_Line = EXTI_Line8;              //设定外部中断1
+//	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;     //设定中断模式
+//	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //设定下降沿触发模式
+//	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+//	EXTI_Init(&EXTI_InitStructure);
 	
 }
 
@@ -118,51 +118,100 @@ void KeyInit(void)
 
 extern char IMUcalibratflag;
 
-void EXTI1_IRQHandler(void){
-	if(EXTI_GetITStatus(EXTI_Line1) != RESET) //确保是否产生了EXTI Line中断
-	{
-    
-		ClibraFlag = FAIL;
-		 #ifdef UART_DEBUG
-	    	printf("key mode press...\r\n");
-		 #endif
-		
-		NRF24L01_SetTxAddr();
+//void EXTI1_IRQHandler(void){
+//	if(EXTI_GetITStatus(EXTI_Line1) != RESET) //确保是否产生了EXTI Line中断
+//	{
+//    
+//		ClibraFlag = FAIL;
+//		 #ifdef UART_DEBUG
+//	    	printf("key mode press...\r\n");
+//		 #endif
+//		
+//		NRF24L01_SetTxAddr();
 
-   	EXTI_ClearITPendingBit(EXTI_Line1);     //清除中断标志位
-	}
-}
+//   	EXTI_ClearITPendingBit(EXTI_Line1);     //清除中断标志位
+//	}
+//}
 
 extern char Lockflag;
 
 //“+”按键，控制电机是否待机转动
-void EXTI3_IRQHandler(void){
-	if(EXTI_GetITStatus(EXTI_Line3) != RESET) //确保是否产生了EXTI Line中断
-	{
-    Lockflag = 1;
-		 #ifdef UART_DEBUG
-	    	printf("key add press...\r\n");
-		 #endif
+//void EXTI3_IRQHandler(void){
+//	if(EXTI_GetITStatus(EXTI_Line3) != RESET) //确保是否产生了EXTI Line中断
+//	{
+//    Lockflag = 1;
+//		 #ifdef UART_DEBUG
+//	    	printf("key add press...\r\n");
+//		 #endif
 
-		EXTI_ClearITPendingBit(EXTI_Line3);     //清除中断标志位
-		
-	}
-}
+//		EXTI_ClearITPendingBit(EXTI_Line3);     //清除中断标志位
+//		
+//	}
+//}
 
 //“-”按键，控制IMU校准
-void EXTI9_5_IRQHandler(void){
-	if(EXTI_GetITStatus(EXTI_Line8) != RESET) //确保是否产生了EXTI Line中断
-	{	    
-		 IMUcalibratflag = !IMUcalibratflag;		
-		
-		 #ifdef UART_DEBUG
-	    	printf("key sub press...\r\n");
-		 #endif
+//void EXTI9_5_IRQHandler(void){
+//	if(EXTI_GetITStatus(EXTI_Line8) != RESET) //确保是否产生了EXTI Line中断
+//	{	    
+//		 IMUcalibratflag = !IMUcalibratflag;		
+//		
+//		 #ifdef UART_DEBUG
+//	    	printf("key sub press...\r\n");
+//		 #endif
 
-		EXTI_ClearITPendingBit(EXTI_Line8);     //清除中断标志位
+//		EXTI_ClearITPendingBit(EXTI_Line8);     //清除中断标志位
+//	}
+//}
+#define MODE_KEY GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1)
+#define ADD_KEY GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_3)
+#define DEC_KEY GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_8)
+
+enum
+{
+	RELEASE = 0,
+	PRESS,
+	
+};
+
+void keyCheck(void)
+{
+	static u8 modeKeyFlag, addKeyFlag, decKeyFlag;
+	if(MODE_KEY == 0)
+	{
+		modeKeyFlag = PRESS;
+	}
+	else
+	{
+		if(PRESS == modeKeyFlag)
+		{
+			ClibraFlag = FAIL;
+		}
+		modeKeyFlag = RELEASE;
+	}
+	if(ADD_KEY == 0)
+	{
+		addKeyFlag = PRESS;
+	}
+	else
+	{
+		if(PRESS == addKeyFlag)
+		{
+			Lockflag = 1;
+		}
+		addKeyFlag = RELEASE;
+	}
+	if(DEC_KEY == 0)
+	{
+		decKeyFlag = PRESS;
+	}
+	else
+	{
+		if(PRESS == decKeyFlag)
+		{
+			IMUcalibratflag = !IMUcalibratflag;
+		}
+		decKeyFlag = RELEASE;
 	}
 }
-
-
 
 
