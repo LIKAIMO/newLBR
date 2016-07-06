@@ -121,8 +121,8 @@ void UART1_init(u32 pclk2,u32 bound)
   UartRxbuf.pbuf = &rx_buffer[0];
   
   
-  printf("MCU clock frequency:%dMHz \r\n",pclk2);
-  printf("UART 1 baud frequency:%d \r\n",bound);
+  //printf("MCU clock frequency:%dMHz \r\n",pclk2);
+  //printf("UART 1 baud frequency:%d \r\n",bound);
  
   
 }

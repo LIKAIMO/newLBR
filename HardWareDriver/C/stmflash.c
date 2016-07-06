@@ -31,7 +31,7 @@ void STMFLASH_Unlock(void)
 {
   FLASH->KEYR=FLASH_KEY1;//写入解锁序列.
   FLASH->KEYR=FLASH_KEY2;
-  printf("Flash unlock success...\r\n");
+  //printf("Flash unlock success...\r\n");
 }
 //flash上锁
 void STMFLASH_Lock(void)

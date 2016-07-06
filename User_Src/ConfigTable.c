@@ -107,10 +107,14 @@ void SaveParamsToEEPROM(void)
 void ParamSetDefault(void) 
 {
 	    
-			Throttle_Calibra 			= 0;
-			Pitch_Calibra 				= 0;
-	    Roll_Calibra 					= 0;
-	    Yaw_Calibra 					= 0;
-	    ClibraFlag            = FAIL;
-			TX_ADDRESS[4]					= 0x00;
+	Throttle_Calibra 			= 0;
+	Pitch_Calibra 				= 0;
+	Roll_Calibra 					= 0;
+	Yaw_Calibra 					= 0;
+	ClibraFlag            = FAIL;
+	TX_ADDRESS[0]					= 0x34;
+	TX_ADDRESS[1]					= 0x10;
+	TX_ADDRESS[2]					= 0x10;
+	TX_ADDRESS[3]					= 0x10;
+	TX_ADDRESS[4]					= 0x01;
 }

@@ -163,7 +163,7 @@ void KeyLockcrazepony(void)
 				//解决按键连按的毛刺
 				//本函数会被主循环10Hz调用，测试发现cnt为1或者2的时候，（200ms以下），属于按键毛刺，应该剔除
 				if(cnt < 3){
-					printf("invalid key press:%d\n",cnt);
+					//printf("invalid key press:%d\n",cnt);
 					cnt = 0;
 					Lockflag = 0;
 					break;

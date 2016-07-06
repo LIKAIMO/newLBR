@@ -163,8 +163,8 @@ extern char Lockflag;
 //	}
 //}
 #define MODE_KEY GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_1)
-#define ADD_KEY GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_3)
-#define DEC_KEY GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_8)
+#define LOCK_KEY GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_3)
+#define CALIBRATION_KEY GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_8)
 
 enum
 {
@@ -172,45 +172,61 @@ enum
 	PRESS,
 	
 };
-
+u8 modifyNrfAddressFlag;
+u8 onlineModeFlag;
 void keyCheck(void)
 {
-	static u8 modeKeyFlag, addKeyFlag, decKeyFlag;
+	static u8 modeKeyFlag, lockKeyFlag, calibrationKeyFlag;
+	//mode key
 	if(MODE_KEY == 0)
 	{
-		modeKeyFlag = PRESS;
+		modeKeyFlag = PRESS;    //if press,save status
 	}
 	else
 	{
-		if(PRESS == modeKeyFlag)
+		if(PRESS == modeKeyFlag)    //if last time is press, target once key function
 		{
-			ClibraFlag = FAIL;
+			if(Throttle < 1150 && Yaw < 1150 && Pitch < 1150 && Roll > 1850)    //matching Nrf address
+			{
+				modifyNrfAddressFlag = 1;	
+			}
+			else    //use online mode
+			{
+				modifyNrfAddressFlag = 0;
+				onlineModeFlag = !onlineModeFlag;
+			}
+			
+			//led instruction current status
+			LedSet(led2,modifyNrfAddressFlag);    
+			LedSet(led3,onlineModeFlag);
 		}
-		modeKeyFlag = RELEASE;
+		modeKeyFlag = RELEASE;  //if release, save state
 	}
-	if(ADD_KEY == 0)
+	// "+" key
+	if(LOCK_KEY == 0)
 	{
-		addKeyFlag = PRESS;
+		lockKeyFlag = PRESS;
 	}
 	else
 	{
-		if(PRESS == addKeyFlag)
+		if(PRESS == lockKeyFlag)
 		{
 			Lockflag = 1;
 		}
-		addKeyFlag = RELEASE;
+		lockKeyFlag = RELEASE;
 	}
-	if(DEC_KEY == 0)
+	//"-" key
+	if(CALIBRATION_KEY == 0)
 	{
-		decKeyFlag = PRESS;
+		calibrationKeyFlag = PRESS;
 	}
 	else
 	{
-		if(PRESS == decKeyFlag)
+		if(PRESS == calibrationKeyFlag)
 		{
 			IMUcalibratflag = !IMUcalibratflag;
 		}
-		decKeyFlag = RELEASE;
+		calibrationKeyFlag = RELEASE;
 	}
 }
 

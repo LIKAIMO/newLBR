@@ -26,4 +26,13 @@
 #define AMERICAN_RC_MODE		//美国手（左手油门）或者日本手（右手油门）
 #define UART_DEBUG					//是否输出打印信息以供调试
 
+/* global variable*/
+extern u8 modifyNrfAddressFlag;
+extern u8 onlineModeFlag;
+
+
+
+
+
+
 //------------------End of File----------------------------
