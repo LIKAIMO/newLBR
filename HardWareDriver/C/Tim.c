@@ -66,7 +66,7 @@ void TIM3_IRQHandler(void)		//打印中断服务程序
 				printf("pitch -->%d\r\n",Pitch);
 				printf("roll -->%d\r\n",Roll);
 				printf("yaw -->%d\r\n",Yaw);
-				printf("remote addr -->0x%x\r\n",TX_ADDRESS[4]);// tx addr
+				printf("remote addr -->0x%x%x\r\n",TX_ADDRESS[3],TX_ADDRESS[4]);// tx addr
 				printf("-------------\r\n");
 
         TIM_ClearITPendingBit(TIM3 , TIM_FLAG_Update);   //清除中断标志   

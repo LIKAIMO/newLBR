@@ -59,12 +59,16 @@ void TableWriteEEPROM(void)
 void TableToParam(void)
 {
 	    
-	    Throttle_Calibra = table.thrCalibraVaule;
-			Pitch_Calibra = table.pitCalibraVaule;
-	    Roll_Calibra = table.rollCalibraVaule;
-	    Yaw_Calibra = table.yawCalibraVaule;
-	    ClibraFlag  = table.Clibra_flag;
-			TX_ADDRESS[4] = (uint8_t)table.tx_addr;
+	Throttle_Calibra = table.thrCalibraVaule;
+	Pitch_Calibra = table.pitCalibraVaule;
+	Roll_Calibra = table.rollCalibraVaule;
+	Yaw_Calibra = table.yawCalibraVaule;
+	ClibraFlag  = table.Clibra_flag;
+	TX_ADDRESS[0] = table.nrfAddr[0];
+	TX_ADDRESS[1] = table.nrfAddr[1];
+	TX_ADDRESS[2] = table.nrfAddr[2];
+	TX_ADDRESS[3] = table.nrfAddr[3];
+	TX_ADDRESS[4] = table.nrfAddr[4];
 }
 
 void ParamToTable(void)
@@ -75,8 +79,11 @@ void ParamToTable(void)
 	table.rollCalibraVaule = Roll_Calibra;
 	table.yawCalibraVaule  = Yaw_Calibra;
 	table.Clibra_flag      = ClibraFlag;
-	table.tx_addr					 = (uint16_t)TX_ADDRESS[4];
-
+	table.nrfAddr[0]			 = (uint16_t)TX_ADDRESS[0];
+	table.nrfAddr[1]			 = (uint16_t)TX_ADDRESS[1];
+	table.nrfAddr[2]			 = (uint16_t)TX_ADDRESS[2];
+	table.nrfAddr[3]			 = (uint16_t)TX_ADDRESS[3];
+	table.nrfAddr[4]			 = (uint16_t)TX_ADDRESS[4];
 }
 
 void LoadParamsFromEEPROM(void)

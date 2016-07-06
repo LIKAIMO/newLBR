@@ -77,9 +77,26 @@ int main(void)
 		//50Hz loop
 		if(flag50Hz == 1)
 		{
+			static u8 modifyOnceAddr = 1;
 			LoadRCdata();
 			flag50Hz = 0;
-			
+			if(modifyNrfAddressFlag && modifyOnceAddr)
+			{
+				modifyOnceAddr = 0;
+				NRF24L01_modifyAddr();
+			}
+			if(modifyNrfAddressFlag)
+			{
+				CommUAVUpload(MSP_TX_ADR_CHANGE);
+			}
+			else
+			{
+				if(!modifyOnceAddr)
+				{
+					modifyOnceAddr = 1;
+					SetTX_Mode();
+				}
+			}
 		}
 		
 		// 80Hz 12.5ms

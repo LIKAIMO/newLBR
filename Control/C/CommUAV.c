@@ -104,7 +104,14 @@ void CommUAVUpload(uint8_t cmd)
         uart8chk(0);
         uart8chk(cmd); 
         break;
-			
+			case MSP_TX_ADR_CHANGE:
+				uart8chk(4);
+				uart8chk(cmd);
+				uart8chk(TX_ADDRESS[1]);
+				uart8chk(TX_ADDRESS[2]);
+				uart8chk(TX_ADDRESS[3]);
+				uart8chk(TX_ADDRESS[4]);
+				break;
 			
 			
     }

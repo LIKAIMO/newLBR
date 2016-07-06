@@ -203,19 +203,36 @@ u8 NRF24L01_RxPacket(u8 *rxbuf)
 	return 1;//没收到任何数据
 }		
 
-//给遥控器NRF24L01设置随机的地址
 void NRF24L01_SetTxAddr(void)
 {
-	unsigned time = micros();
-	
-	//printf("time is 0x%x\r\n",time);
-	TX_ADDRESS[4] = (u8)time;
-	
-	
+
+	uint32_t time = micros();
+	u8 i;
+	for(i = 4; i > 0; i--)
+	{
+		TX_ADDRESS[i] = (u8)time;
+		time = time >> 8;
+	}
+	if(0x01 == TX_ADDRESS[4] && 0x00 == TX_ADDRESS[3] 
+		 && 0x00 == TX_ADDRESS[2] && 0x00 == TX_ADDRESS[1])
+	{
+		TX_ADDRESS[4]++;
+	}
+
 	//保存到EEPROM中
 	SaveParamsToEEPROM();
 }
 
+void NRF24L01_modifyAddr(void)
+{
+
+		TX_ADDRESS[1] = 0x00;
+		TX_ADDRESS[2] = 0x00;
+		TX_ADDRESS[3] = 0x00;
+		TX_ADDRESS[4] = 0x01;
+		SetTX_Mode();
+		NRF24L01_SetTxAddr();
+}
 
 //判断SPI接口是否接入NRF芯片是否可用
 u8 NRF24L01_Check(void) 

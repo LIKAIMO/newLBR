@@ -67,11 +67,11 @@ uint8_t NRF_Write_Reg(uint8_t reg, uint8_t value);
 uint8_t NRF_Read_Reg(uint8_t reg);
 uint8_t NRF_Read_Buf(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
 uint8_t NRF_Write_Buf(uint8_t reg, uint8_t *pBuf, uint8_t uchars);
-// void Nrf_Irq(void);
 u8 NRF24L01_RxPacket(u8 *rxbuf);
 u8 NRF24L01_TxPacket(u8 *txbuf);
 u8 NRF24L01_Check(void);
 void NRF24L01_SetTxAddr(void);
+void NRF24L01_modifyAddr(void);
 
 extern uint8_t NRF24L01_RXDATA[32];
 extern uint8_t NRF24L01_TXDATA[32];

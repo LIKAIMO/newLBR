@@ -10,7 +10,8 @@
 #define MSP_STOP_HOLD_ALT     11
 #define MSP_HEAD_FREE         12
 #define MSP_STOP_HEAD_FREE	  13
-#define MSP_AUTO_LAND_DISARM  9        
+#define MSP_AUTO_LAND_DISARM  9      
+#define MSP_TX_ADR_CHANGE     99
 #define MSP_ACC_CALI	        205
 //对外接口函数
 void CommUAVUpload(unsigned char cmd);
